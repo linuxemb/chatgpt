@@ -4,33 +4,26 @@ import Head from 'next/head'
 import { Roboto } from "@next/font/google";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useChatGpt } from "@/hook/useChatGpt";
 
  
-
-    const roboto = Roboto({weight:"400", subsets: ['latin'] });
+const promptId = "clgzb2ooc09agjiehwkv5teib";
+const roboto = Roboto({weight:"400", subsets: ['latin'] });
 export const  ChatContainer =()  => {
 
 const [pendingMessage, setPendingMessage] = React.useState('');
 const [message, setMessage] = React.useState("");
- // const  {data, isLoading} = useChatGpt(message, promptId);
+const  {data, isLoading} = useChatGpt(message, promptId);
 
-// function MyComponent() {
-//         const handleClick = () => {
-//           console.log('Button clicked');
-//           setMessage(pendingMessage);
-//           <p> {pendingMessage} </p>
-//         };
     return  (
     <div  id ="chat-container"> 
           <h1>Chat Container   </h1>
+        
            <TextField type="text"
             onChange={(e) => {
                 setPendingMessage(e.target.value);
               }}
            />
-        
-            {/* <TextField label="Enter text" />           */}
-          
           <Button 
            variant="outlined"
            onClick={ () => {            
@@ -41,16 +34,13 @@ const [message, setMessage] = React.useState("");
         </Button>
 
         <p> {message} </p>
+      
+        {isLoading ? <p> Loading... </p> : <p> {data} </p> }  
+
       </div>
         );   
-    }
-
-   
-    // return (
-    //     <div>
-    //         <MyComponent />
-    //         </div>
-    // );
-// }        
+    };
+  
+     
 export default ChatContainer;
 // Path: video\src\components\ChatInput.js
